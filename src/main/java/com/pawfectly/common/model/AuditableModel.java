@@ -33,4 +33,8 @@ public class AuditableModel {
     @LastModifiedDate
     protected LocalDateTime modifiedDate;
 
+    private boolean isActive;
+
+    private boolean isDeleted;
+
 }

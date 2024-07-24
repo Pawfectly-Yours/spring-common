@@ -1,17 +1,16 @@
 package com.pawfectly.common.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,24 +21,24 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Users")
-public class UserModel extends AuditableModel{
+@Table(name = "UserInfo")
+public class UserInfoModel extends AuditableModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String email;
+    private String firstName;
 
-    private String mobileNo;
+    private String middleName;
 
-    @JsonIgnore
-    private String password;
+    private String lastName;
 
-    private boolean isAccountLock;
+    private String address;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private UserInfoModel userInfo;
+    @OneToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JsonBackReference
+    private UserModel user;
 
 }
